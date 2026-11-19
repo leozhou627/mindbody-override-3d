@@ -4,6 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0c1517" />
+    <!-- 階段 17：程式還沒下載完前，先給墨青底＋一盞燈（不閃白、不空白）；React 起來後整塊被換掉 -->
+    <style>
+      html,body{background:#0c1517;margin:0}
+      #boot{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+        background:radial-gradient(circle at 50% 38%,#1b3436 0,#0c1517 70%);color:#e8c58a;
+        font:700 22px/1.4 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;letter-spacing:4px}
+      #boot i{width:46px;height:58px;border-radius:48%;background:radial-gradient(circle at 50% 45%,#fff1cf,#e8c58a 55%,#b4823f);
+        box-shadow:0 0 34px 10px rgba(240,176,70,.35);animation:boot 2.4s ease-in-out infinite}
+      @keyframes boot{50%{box-shadow:0 0 50px 18px rgba(240,176,70,.5)}}
+      @media (prefers-reduced-motion:reduce){#boot i{animation:none}}
+    </style>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -30,12 +41,12 @@
     <meta name="twitter:description" content="每日靜心點燈、搖本草養生籤，3D 暖玉人體陪您照顧自己。生活教育工具，非醫療診斷。" />
     <meta name="twitter:image" content="https://leozhou627.github.io/mindbody-override-3d/og-cover.png" />
     <link rel="canonical" href="https://leozhou627.github.io/mindbody-override-3d/" />
-    <script type="module" crossorigin src="./assets/index-Gvh-HV66.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/three-byP_-_tB.js">
-    <link rel="modulepreload" crossorigin href="./assets/r3f-B4ITXfcS.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-DV1029GA.css">
+    <script type="module" crossorigin src="./assets/index-CwYf4dXT.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/react-koMYk5Jq.js">
+    <link rel="modulepreload" crossorigin href="./assets/vendor-BgXc05gv.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-bc421SRg.css">
   <link rel="manifest" href="./manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="./registerSW.js"></script></head>
   <body>
-    <div id="root"></div>
+    <div id="root"><div id="boot" aria-label="身心安頓 3D 載入中"><i></i>身心安頓</div></div>
   </body>
 </html>
