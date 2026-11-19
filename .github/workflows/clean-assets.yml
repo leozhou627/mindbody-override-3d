@@ -1,6 +1,6 @@
 # 公開的 GitHub Pages repo 用：每次上傳新版後，自動刪掉 assets/ 裡新版用不到的舊 hash 檔。
 # 「用得到」＝出現在 sw.js（service worker 預先快取清單，含延後載入的 3D 檔）或 index.html 裡的檔名。
-# 保險：sw.js 或 index.html 讀不到、或算出來要刪的超過 8 成，就什麼都不刪。
+# 保險：sw.js 或 index.html 讀不到、新版要用的檔案有任何一個不在 assets/、或刪完剩不到 3 個，就什麼都不刪。
 name: clean-old-assets
 
 on:
@@ -33,7 +33,11 @@ jobs:
           done
           echo "assets 共 $total 個，要刪 ${#gone[@]} 個"
           [ ${#gone[@]} -eq 0 ] && exit 0
-          if [ $(( ${#gone[@]} * 10 )) -gt $(( total * 8 )) ]; then echo '要刪的太多，可能讀錯了，不動'; exit 1; fi
+          # 新版要用的每一個檔都要在，才代表 sw.js／index.html 讀對了
+          need=$(grep -oE 'assets/[A-Za-z0-9_.-]+\.(js|css)' sw.js index.html | sed 's/^[^:]*://' | sort -u)
+          for n in $need; do test -f "$n" || { echo "新版要用的 $n 不在，不動"; exit 1; }; done
+          keep=$(( total - ${#gone[@]} ))
+          if [ "$keep" -lt 3 ]; then echo "刪完只剩 $keep 個，可能讀錯了，不動"; exit 1; fi
           git rm -q "${gone[@]}"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
